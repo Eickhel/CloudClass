@@ -2,4 +2,8 @@ sudo: required
 services:
   - docker
 script:
-  - docker built -t cloud .
+  - docker build -t cloud .
+after success:
+  - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+  - docker tag cloud $DOCKER_USER/cloud
+  - docker push $DOCKER_USER/cloud
